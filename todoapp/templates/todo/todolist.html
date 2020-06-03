@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content%}
+{% load static %}
+    <h1 class='titleheader mb-4'>My Todo List</h1>
+    <form action="{% url 'create' %}" class="form-group" method="post">
+        {% csrf_token %}
+        <input type="text" name="new_item" class="form-control" placeholder="Enter a To-Do item">
+    </form>
+    <ul class="container m-2 list-group list-group-horizontal">
+        <li class='list-group-item'>Total <span class="badge badge-primary badge-pill">{{ total }}</span></li>
+        <li class='list-group-item'>Done <span class="badge badge-success badge-pill">{{ done }}</li>
+        <li class='list-group-item'>Done% <span class="badge badge-secondary badge-pill">{{ donepercent }}%</li>
+    </ul>
+    <ul class='list-group input-group'>
+        {% for item in items %}
+        <li class='list-group-item'>
+            <form action="{% url 'delete' item.id %}" method="post">
+                {% csrf_token %}
+                <!-- <a class='btn btn-primary btn-sm' href="{% url 'update' item.id %}"> -->
+                    <a class='m-2' style="text-decoration: none;" href="{% url 'update' item.id %}">
+                        
+                    <!-- <input class='mb-1' type="checkbox" id="item{{ forloop.counter }}" 
+                    {% if item.check %} checked="checked" {% endif %} 
+                    value="{{ item.name }}" > -->
+                    {% if item.check %}
+                        <img class='m-2' src="{% static 'img/icons8-checked-checkbox-26.png' %}" alt=""> 
+                    {% else %} 
+                        <img class='m-2' src="{% static 'img/icons8-unchecked-checkbox-26.png' %}" alt=""> 
+                    {% endif %} 
+                </a>
+                {% if item.check %}<del>{% endif %}
+                <label class="m-2 h6" for="item{{ forloop.counter }}">
+                    {% if item.check %}<s>{% endif %}
+                    {{ item.name }}
+                    {% if item.check %}</s>{% endif %}
+                </label>
+                
+                <input type="submit" value="Delete" class="btn btn-danger btn-sm float-right">
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

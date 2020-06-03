@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>ToDo {% block title %} {% endblock %}</title>
+</head>
+<body>
+    {% include 'partials/_navbar.html' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 m-auto">
+                <!-- <h1 class='pageheader'>Header</h1>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam quas ratione repellat, id saepe deserunt sed necessitatibus omnis officia doloremque sunt sequi. Fugiat necessitatibus architecto soluta iusto. Soluta, maiores ad!</p> -->
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
